@@ -7,8 +7,8 @@ dir="$1"
 malicious_dir="$2"
 interval_secs="$3"
 
-last = "directory-info.last"
-new = "directory-info.new"
+last="directory-info.last"
+new="directory-info.new"
 
 scan_directory()
 {
@@ -22,14 +22,14 @@ scan_directory()
 					echo "$file is malicious and it is DELETED"
 					cp "$file" "$malicious_dir/"
 					rm "$file"
-					continue;
+					continue
 				;;
 
 			esac
 
-			if grep -qiE 'virus|trojan|malware|worm|ransomware' "$file"; then
+			if grep -qiE 'virus|trojan|malware|worm|ransomware'  "$file"; then
 					echo "$file is malicious and it is DELETED"
-					cp "$file" "malicious_dir/"
+					cp "$file" "$malicious_dir/"
 					rm "$file"
 			fi
 
@@ -43,3 +43,22 @@ if [ ! -f "$last" ]; then
 	scan_directory
 	ls -l "$dir" > "$last"
 fi
+
+
+while true
+do
+
+	sleep "$interval_secs"
+
+	ls -l "$dir" > "$new"
+
+	if cmp -s "$last" "$new"; then
+
+	continue
+
+	fi
+
+	scan_directory
+	cp "$new" "$last"
+
+done
