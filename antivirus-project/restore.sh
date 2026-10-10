@@ -35,8 +35,8 @@ index=$((choice-1))
 
 selectedfile="$malicious_dir/${files[$index]}"
 
-echo "1) Restore"
-echo "2) Permenantly delete"
+echo "1) Restore this file back into dir (it was a false positive)"
+echo "2) Permenantly delete this file from malicious_dir (it was geniuely malicious)"
 echo "3) Leave as-is"
 
 read -p "Choose an option: " option

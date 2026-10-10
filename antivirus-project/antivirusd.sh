@@ -59,6 +59,6 @@ do
 	fi
 
 	scan_directory
-	cp "$new" "$last"
+	ls -l "$dir" > "$last"
 
 done
