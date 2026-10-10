@@ -7,11 +7,13 @@
 		2. Recovery process for the quarantined files.
 
 #MUST HAVES
+
 The main folder that will have the files: dir/
 The working files: restore.sh antivirusd.sh
 The makefile : Makefile
 
 #Starting
+
 To start the program, open the terminal and run: make setup
 This will create the malicious_dir folder, if not there, to prepare the program.
 
@@ -30,6 +32,7 @@ After the scan, it updates directory-info.last to show the current content of di
 On the first run, it scans immediately.
 
 #What's considered malicious
+
 	1. The following extensions : .exe .bat .vbs .scr .ps1
 	2. The following keywords: virus, trojan, malware, worm, ransomware
 NOTE! test.txt.scr would be FLAGGED while test.txt.scr.txt WONT BE FLAGGED
@@ -37,6 +40,7 @@ NOTE! The keywords are case insensitive : virus and ViRus would both be FLAGGED
 
 
 #Recovery process (restore.sh)
+
 	To start the restore.sh, simply run the command: make restore
 The file retore.sh is responsible on deciding what happens to the malicious files, regardless of it being malicious for extension or the content inside.
 It uses an array to list the file names inside the malicious_dir folder.
@@ -52,6 +56,7 @@ Upon the user's choice, the action will be made.
 
 #FOLDER HERICHERY
 
+
 antivirusd.sh  restore.sh  antivirus-cron.sh  Makefile README.md  dir/  malicious_dir/ (malicious_dir/ would be created using make setup if not already created)  directory-info.last  directory-info.new
 
 --dir/ is the folder with the main files to scan
@@ -61,6 +66,7 @@ antivirusd.sh  restore.sh  antivirus-cron.sh  Makefile README.md  dir/  maliciou
 
 #PREREQUISITIES AND INSTALL
 
+
 Ubuntu/Linux and Bash: needed to run the scripts.
 GNU Make: to run the Makefile
 	install guide for makefile:
@@ -69,6 +75,7 @@ GNU Make: to run the Makefile
 
 
 #CRON
+
 
 The cron service must be installed and running on Ubuntu.
 The required : antivirus-cron.sh , dir/ , malicious_dir/
@@ -95,6 +102,7 @@ This will launch the cron automatically every minute, delayed by 23 seconds.
 
 
 THIRD FRIDAY TASK:
+
 	To run the scan every third Friday of the month at 12:31 AM use the following line with the actual paths:
 31 0 * * 5 [ "$(date +\%d)" -ge 15 ] && [ "$(date +\%d)" -le 21 ] && /FULL/PATH/antivirus-cron.sh /FULL/PATH/dir /FULL/PATH/malicious_dir
 
